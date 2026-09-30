@@ -1,0 +1,15 @@
+A biblioteca json do Python é usada para ler, escrever e converter dados no formato JSON.
+
+
++IMPORTANTES
+json.dump(objeto, arquivo, indent=4)	    Escreve um objeto Python em um arquivo JSON.
+json.load(arquivo)   	Lê um arquivo JSON e o converte para um objeto Python.
+json.dumps(objeto Py, indent=4)	Converte um objeto Python em uma string JSON.
+json.loads(texto JSON)	Converte uma string JSON em um objeto Python.
+
+exemplo de objeto:
+pessoa = {
+    "nome": "Pablo",
+    "idade": 20,
+    "cidade": "São Paulo
+}

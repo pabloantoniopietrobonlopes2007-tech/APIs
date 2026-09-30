@@ -1,0 +1,37 @@
+biblioteca que permite interagir com o sistema operacional, como criar pastas, navegar entre diretórios,
+executar comandos, manipular arquivos,acessar variáveis de ambiente e muito mais.
+
+OBS:
+diretorios=pastas; arquivo = file
+
++IMPORTANTES
+
+1. Diretórios
+os.getcwd()     Retorna o diretório atual
+os.rmdir(nome)	    Remove pasta vazia
+os.rename(origem,destino)	Renomeia arquivo/pasta
+os.replace(origem,destino)	Substitui um arquivo
+os.scandir()	Percorre diretórios de forma rápida
+os.walk()	Percorre toda a árvore de diretórios
+
+os.getcwd(caminho ate pasta atual)  Retorna o diretório atual
+os.chdir(caminho para nova pasta)    Muda o diretório\pasta atual
+os.listdir(caminho='.')     cria uma Lista com os arquivos e pastas
+os.mkdir(nome)	            Cria uma pasta
+os.removedirs(caminho)	    Remove várias pastas vazias(sem conteudo)
+os.rmdir(nome)              Remove pasta vazia(sem conteudo)
+os.remove()                 Remove arquivo/file(com ou sem conteudo)
+os.rename(origem,destino)   Renomeia arquivo/pasta
+os.walk()                   Percorre toda a árvore de diretórios/pastas retornado seus conteudos, 
+->devolve: raiz → caminho da pasta atual. | diretorios → lista das subpastas da pasta atual. | arquivos → lista dos arquivos da pasta atual.
+os.scandir()                Percorre diretórios de forma rápida, analisando ele e o que tem dentro dele
+os.system()                 Executa comando do terminal
+os.cpu_count()              Número de CPUs
+os.getlogin()               Usuário logado, Ela retorna uma string com o nome do usuário.
+os.environ                  Dicionário das variáveis
+os.getenv(nome_da_variavel, valor_caso_não_exista[opcional])        Obtém variável
+os.path.exists()            Verifica existência
+os.path.join(caminho1,caminho2)              Junta caminhos na ordem em que é colocados
+os.path.isfile()            É arquivo?
+os.path.isdir()             É diretório?
+os.path.abspath()           Caminho absoluto

@@ -1,0 +1,15 @@
+pode usá-las para:
+Encontrar palavras em um texto.
+Validar e-mails.
+Validar CPF, CEP, telefone.
+Extrair números.
+Substituir partes de um texto.
+
+re.search()	    Procura a primeira ocorrência do padrão.
+re.match()	    Verifica se o início da string corresponde ao padrão.
+re.findall()	Retorna todas as ocorrências.
+re.finditer()	Retorna um iterador com todas as ocorrências.
+re.sub()	    Substitui partes do texto.
+re.split()	    Divide uma string usando um padrão.
+re.compile()	Compila uma expressão regular para reutilização.
+re.fullmatch()  Verifica se a string inteira corresponde ao padrão.

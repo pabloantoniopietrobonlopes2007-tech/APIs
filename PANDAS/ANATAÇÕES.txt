@@ -1,0 +1,134 @@
+para cada tipo de arquivo(ex. exel) é preciso de uma ide de pandas (ex. )
+arquivos panda pode usar .ipynb para nao acumular dados no terminal
+Divide em LINHAS(identificados pelos seus indices [do 0 a x]) e COLUNAS(identificados por rotulos de coluna[ex.data])
+    OBS: indices podem ser manipulado e mudada/escolhido
+
+FUNÇÕES:
+
+LEITURA E PRINT:
+pandas.read_<tipo_do_arquivo>("<nome_do_arquivo>", <parametros>)
+    OBS:precisa armazenar oque ele le em algum lugar => dataframe(df == abreviação) == base de dados de pandas
+        boas praticas df_<o que armazena> ex. df_vendas, df_gerentes, df_clientes, etc
+    PARAMETROS: encoding="<tipo de caracteres>" ex. "utf-8" e "latin1" para os caracteres que usamos (Ç^~´`)
+                sep="<caractere que deve ser usado para delimitar a separação de cada coluna>" ex.","(padrão) e ";"
+                low_memory=<True/False"> ler ou nao colunas com diferentes tipos 
+
+display(<df a ser mostrado>)
+    OBS: é como um print so que organizado
+
+INSPEÇÃO DE DADOS:
+display(df.head(<numeros>)) : quantidade de linhas iniciais a ser mostradas
+display(df.tail(<num>)) : quantidade de linhas finais a ser mostradas
+display(df.sample(<num>)) : quantidade de linhas aleatorias a ser mostradas
+
+display(df.shape) : tamanho (x linhas e y colunas)
+display(df.colmns) : printa uma lista com os rotulos de todas as colunas
+display(df.info()) : informações sobre o df (ex. tamanho, tipo de dados, nomes de colunas, linhas preenchidas)
+    OBS:object == textos
+        deve ser usado para identificar e corrigir dados errados
+display(df.describe()) : descrição estatistica sobre o arquivo (ex. media, desvio padrao, min,max)
+
+TRATAMENTO DE DADOS:
+#colunas
+    df["<nome da coluna exatamente>"] : seleciona coluna especifica
+        OBS:para selecioar mais de uma coluna faz entre 2[[]], pois é uma lista de colunas: df[["<nome1>","<nome2>"]]
+    df_novo = df_geral["<coluna>"] ou [["<coluna1>","<coluna2>",...]] : cria uma nova dataframe
+
+    df_antiga = df_antiga[["<colunas que quer deixar>"]] : EXCLUI todas as outras colunas
+    df_para_analise = df_antiga.drop(columns="<1 coluna>" ou ["<varias colunas>"]) : EXCLUI COLUNAS ESPECIFICA
+    df_analise = df_antiga.drop(0 OU axis=0(nao precisa do axis) ou [0,1,..]) :EXCLUI LINHAS ESPECIFICAS
+
+#nulos
+    df_analise = df_analise.dropna() : retira todos as linhas com pelo menos 1 valor vazio
+        OBS: esse valor vazio pode impactar o resultado então é melhor tira-lo
+    df_analise["<coluna>"] = df_analise["<coluna>"].fillna("<o que sera substituira>") : substitui os valores Nan por outra coisa de sua escolha
+
+#tipos de dados
+    df_analise["<coluna de data>"] = pd.to_datetime(df_analise["<coluna de Data>"], format="%Y-%m-%d") : transforma o tipo de dado em data
+        OBS:%Y == ano, %m == mes, %d == dia
+    df['coluna'] = df['coluna'].astype(float) : Converter para numérico
+    df['coluna'] = df['coluna'].astype(int) : Converter para numérico
+    df['coluna'] = df['coluna'].astype(str)  Converter para string
+    df['coluna'] = pd.to_numeric(df['coluna'], errors='coerce') : Converter para numérico com tratamento de errors
+        OBS: valores inválidos viram NaN
+
+#padronização
+    df_analise["<coluna>"] = df_analise["<coluna>"].str.strip() : padroniza o texto tirando espaços inuteis
+    df_analise["<coluna>"] = df_analise["<coluna>"].str.title() : padroniza o texto primeira letra de cada palavra maiuscula e o reto minuscula
+    df_analise["<coluna>"] = df_analise["<coluna>"].str.lower() : padroniza o texto em todas minuscula
+
+#duplicatas
+    df_analise = df_analise.drop_duplicates(subset=["<parametro/coluna para olhar>"], keep="fist/last") : elimina linhas duplicadas
+        OBS:subset == da as colunas que precisam estar iguais para a linha ser excluida
+            keep == escolhe a linha a ser mantida(first=primeira (padrao), last=ultima)
+
+CRIAÇÃO DE COLUNAS
+df_anlise["<nova coluna>"] = <o que sera atribuida nas linhas>
+df_analise["<nova coluna>"] = np.where(condição, valor_verdade, valor_falso) : atribuição de valor por condição
+    OBS: np == numpy
+display(df_analise["<coluna>"].<o que quer fazer/ mostrar dessa coluna>)
+    display(df_analise["<coluna>"].unique()) : da todos os elementos que aparecem na coluna em formato de array
+df_analise["<nova coluna">] = df_analise["<coluna>"].map(funçao) : da o valor da linha em relação o valor da linha da coluna passada pela função para definir a saida
+    map == é usado para transformar valores de uma coluna/serie, aplicando uma função, dicionário ou outra Series/coluna a cada elemento.
+OBS:isna() : verifica se o valor e Nan
+    display(df_analise.isna().sum()) : da a soma de todos os valores Nan de cada coluna
+
+ANALISAR
+
+df_analise = df_analise.sort_values(by="<coluna>", ascending=True/False) : organiza de acordo com a coluna escolhida (ex. "data" : cescente de datas)
+    OBS:by="<coluna>" : pode ter mais de um parametro para isso, organizando em ordem os itens com o mesmo parametro1
+        ascending=True(padrão/crecente)/False(decrescente)
+df_analise = df_analise.reset_index() : reseta o index apos a nava organização voltando a ser de 0 a X
+    OBS:df_analise.reset_index() : o index antigo vira uma nova coluna, tendo 2 index
+        df_analise.reset_index(drop=True) : exclui o indice antigo
+
+
+#exportar pdedaços da base
+    #.loc : localiza coisas de uma linha especifica -> nao muda independente da organização do df
+        <dado> = df_analisado.loc[indice, coluna] : identifica um dado por meio da indice e da coluna
+
+    #.iloc : localiza por posição -> muda dependente da organização do df
+            <dado> = df_analisado.iloc[posição do indice,posição do coluna] : identifica um dado por meio das posições do indice e da coluna
+
+    #condicional
+        df_especifico = df_analise[condição]
+        df_nova.to_<tipo de arquivo>("<nova arq>.tipo", index=False) : cria um arquivo do df
+            index=Falso : tira a coluna de index do novo arq
+        df_novo = df_analise[df_analise["coluna de data"].dt.year==X] : seleciona so pelo ano
+            df_novo = df_analise[df_analise["coluna de data"]>=dia/mes/ano] : maoir igual que essa data
+            dt.year=x : ano, dt.month=x : mes, dt.day=x : dia
+        df_novo = df_analise[(condição1) & ou | (condicao2)] : dados com + de uma condição
+            OBS: as condições precisam esatr entre ()
+    
+    #analise por agrupamento
+        df_novo = df_analise.groupby("<colunas(s)>") : agrupa linhas com dados dessa coluna igual
+        analise_nova = df_analise[["coluna","coluna",...]].groupby("coluna").sum() : agrupa a 1° coluna faz a somatoria da 2°
+            df_analise[["coluna","coluna",...]] : seleciona as colunas que vão ser usadas
+            .groupby("coluna") : agrupa dados iguais da coluna escolhida
+            .groupby(["coluna1","coluna2",...]) : agrupa na ordem que foi dado
+                OBS: transforma essa coluna no indice
+                .groupby("coluna", as_index=False) :nao coluca como index
+                analise_nova = analise_nova.reset_index(drop=False(padrão)) : cria um index normal e nao exclui a antiga
+            .sum() : faz a somatoria dos informações das outras colunas apos o agrupamento(caso sejam numericos)
+        OBS:df[coluna] = df[coluna].map("{:,.2f}".format) : formatação de valor numerioco, coloca R$ antes se for dinheiro
+            faça formatação so no fim do codigo pois agora esse valor é uma str não mais numerico
+        df = df.rename(columns={<nome antigo> : <nome novo>, ...}) : renomeia as colunas
+        with pd.option_context("display.max_rows", None) : muda a config do pandas so dentro do with, mostra td tabela
+            display(df)
+
+    #juntando base de dados diferentes
+        df = df.murge(<outro df>, on="<coluna correspondente>") : adiciona informações diferentes, e iguala as correspondentes
+            OBS: caso nomes da colunas fossem diferentes mais os dados os mesmos
+                df.murge(<outro df>, on_left="<correspondente atual>", on_right="<nova>")
+            OBS: sobrepoe as tabelas
+
+        merge("<coluna>", how=joins) : tipos de joins
+                    "iner" (padrão): so fica o que aparece nas duas dessa coluna
+                    "left" (mais usado que right) ou "right" : fica tudo dessa coluna em relação a tabela escolhida
+        df = df.concat(df1,df2,...) : soma as tabelas, coloca uma embaixo da outra
+
+        df["coluna_data"] = df["Data"].dt.to_period("M") : ordena periodo de mes
+
+        df.plot() : cria um grafico
+
+
